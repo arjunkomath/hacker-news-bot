@@ -1,0 +1,16 @@
+{
+  "name": "hn-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Arjun Komath",
+  "license": "ISC",
+  "dependencies": {
+    "node-hacker-news": "0.0.2",
+    "node-telegram-bot-api": "^0.21.1",
+    "request": "^2.72.0"
+  }
+}
