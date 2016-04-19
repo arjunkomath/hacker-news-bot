@@ -19,7 +19,15 @@ bot.onText(/^\/start/, function (msg) {
 	message += '/top [page] - Get posts from page number send' + "\n";
 	message += '/username [user] - Get details of user' + "\n";
 	message += '/help - For help!' + "\n";
-	bot.sendMessage(msg.chat.id, message).then(function () {
+	var opts = {
+		reply_to_message_id: msg.message_id,
+		reply_markup: JSON.stringify({
+			keyboard: [
+			['/top - Get Top 5 posts'],
+			['/help - For help!']]
+		})
+	};
+	bot.sendMessage(msg.chat.id, message, opts).then(function () {
 		console.log('send welcome');
 	});
 });
