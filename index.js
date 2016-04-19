@@ -38,6 +38,29 @@ bot.onText(/^\/top (.+)$/, function (msg, match) {
 	});
 });
 
+bot.onText(/^\/top/, function (msg, match) {
+	hn.topstories( function (err, stories) {
+		if (!err) {
+			var stories = stories.slice(0, 5);
+			stories.map( function(s) {
+				hn.item( s, function(err, item) {
+					var message = item.title + "\n";
+					message += 'url: ' + item.url + "\n";
+					message += 'score: ' + item.score + "\n";
+					message += 'by: ' + item.by + "\n";
+					bot.sendMessage(msg.chat.id, message).then(function () {
+						console.log('send');
+					});
+				})
+			})
+		} else {
+			bot.sendMessage(msg.chat.id, 'Unable to fetch data').then(function () {
+				console.log('send error');
+			});
+		}
+	});
+});
+
 bot.onText(/^\/user (.+)$/, function (msg, match) {
 	var u = match[1];
 	hn.user(u, function (err, user) {
