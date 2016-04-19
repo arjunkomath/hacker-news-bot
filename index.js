@@ -52,7 +52,17 @@ bot.onText(/^\/top (.+)$/, function (msg, match) {
 					message += 'url: ' + item.url + "\n";
 					message += 'score: ' + item.score + "\n";
 					message += 'by: ' + item.by + "\n";
-					bot.sendMessage(msg.chat.id, message).then(function () {
+					var opts = {
+						reply_to_message_id: msg.message_id,
+						reply_markup: JSON.stringify({
+							keyboard: [
+								['/top '+ Number(Number(page)+1)]
+							],
+							one_time_keyboard: true,
+							resize_keyboard: true
+						})
+					};
+					bot.sendMessage(msg.chat.id, message, opts).then(function () {
 						console.log('send');
 					});
 				})
