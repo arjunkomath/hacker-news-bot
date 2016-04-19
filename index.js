@@ -13,6 +13,25 @@ bot.getMe().then(function (me) {
 	console.log('Hi my name is %s!', me.username);
 });
 
+bot.onText(/^\/start/, function (msg) {
+	var message = 'What can I do ? '+ "\n";
+	message += '/top - Get Top 5 posts' + "\n";
+	message += '/top [page] - Get posts from page number send' + "\n";
+	message += '/username [user] - Get details of user' + "\n";
+	message += '/help - For help!' + "\n";
+	bot.sendMessage(msg.chat.id, message).then(function () {
+		console.log('send welcome');
+	});
+});
+
+bot.onText(/^\/help/, function (msg) {
+	var message = 'Need help ? '+ "\n";
+	message += 'Ping me @arjunkomath' + "\n";
+	bot.sendMessage(msg.chat.id, message).then(function () {
+		console.log('send help');
+	});
+});
+
 bot.onText(/^\/top (.+)$/, function (msg, match) {
 	var page = match[1];
 	var limit = (page-1)*5;
@@ -38,7 +57,7 @@ bot.onText(/^\/top (.+)$/, function (msg, match) {
 	});
 });
 
-bot.onText(/^\/top/, function (msg, match) {
+bot.onText(/^\/top/, function (msg) {
 	hn.topstories( function (err, stories) {
 		if (!err) {
 			var stories = stories.slice(0, 5);
