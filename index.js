@@ -24,7 +24,10 @@ bot.onText(/^\/start/, function (msg) {
 		reply_markup: JSON.stringify({
 			keyboard: [
 			['/top - Get Top 5 posts'],
-			['/help - For help!']]
+			['/help - For help!']
+			],
+			one_time_keyboard: true,
+			resize_keyboard: true
 		})
 	};
 	bot.sendMessage(msg.chat.id, message, opts).then(function () {
@@ -56,7 +59,7 @@ bot.onText(/^\/top (.+)$/, function (msg, match) {
 						reply_to_message_id: msg.message_id,
 						reply_markup: JSON.stringify({
 							keyboard: [
-								['/top '+ Number(Number(page)+1)]
+							['/top '+ Number(Number(page)+1)]
 							],
 							one_time_keyboard: true,
 							resize_keyboard: true
@@ -85,7 +88,17 @@ bot.onText(/^\/top/, function (msg) {
 					message += 'url: ' + item.url + "\n";
 					message += 'score: ' + item.score + "\n";
 					message += 'by: ' + item.by + "\n";
-					bot.sendMessage(msg.chat.id, message).then(function () {
+					var opts = {
+						reply_to_message_id: msg.message_id,
+						reply_markup: JSON.stringify({
+							keyboard: [
+							['/top 2']
+							],
+							one_time_keyboard: true,
+							resize_keyboard: true
+						})
+					};
+					bot.sendMessage(msg.chat.id, message, opts).then(function () {
 						console.log('send');
 					});
 				})
